@@ -1,0 +1,45 @@
+strpos: case sensitive
+
+built-in function
+
+superglobal
+
+output ngoài php mode va nằm trong block if_else
+
+xác định dùng IE:
+    IE 11: Trident
+    IE xx: MSIE
+
+ép kiểu (int): 11a => 11; a11 => 0;
+
+chọn POST hay GET phụ thuộc vào việc gửi dữ liệu hay chia sẻ URL
+
+PHP chỉ phân tích cú pháp code trong tag <php ... ?>
+    <php echo ... ?>  === <?= ... ?>
+
+<? ... ?> : enable short_open_tag trong /etc/php/7.0/apache2/php.ini
+
+Nếu file chỉ có code php thì ko cần thẻ đóng ( ?>)
+    để tránh khoảng trắng ngẫu nhiên thêm vào sau thẻ đóng
+    /* 
+        because PHP will start output buffering 
+        when there is no intention from the programmer to send any output at that point in the script.
+        (Xem ở ngay dưới)
+    */
+
+Trình thông dịch PHP gặp thẻ đóng ( ?>) sẽ bắt đầu output mọi thứ sau đó ngoại trừ new-line ngay sau.
+    Tuy nhiên, nếu ở giữa câu điều kiện (if else ...), trình thông dịch sẽ xác định kết quả câu điều kiện trước khi quyết định bỏ qua điều gì.
+    Nó sẽ nhảy qua các block ở trong những điều kiện ko đc đáp ứng.
+    Ouput văn bản lớn nên bỏ qua PHP parsing mode sẽ hiệu quả hơn thay vì cho vào echo, print
+    /* another if_else
+        <?php if ($expression == true): ?>
+            // output
+        <?php else: ?>
+            // output
+        <?php endif; ?>
+    */
+    /* Nếu nhúng PHP trong XML hoặc XHTML thì phải dùng <php .. ?> để tuân thủ tiêu chuẩn */
+    Thẻ đóng ( ?>) sẽ kết thúc PHP mode và chuyển sang HTML mode ngay cả khi ở trong comment "//" hoặc "#". Nếu dùng "/* */" thì OK.
+        Vì comment "//" hoặc "#" chỉ comment đến end-of-line hoặc current block code (tùy theo cái nào đến trc).
+
+PHP code yêu cầu ; cuối lệnh hoặc thẻ đóng ( ?>) sẽ tự động thêm ; vào lệnh cuối cùng

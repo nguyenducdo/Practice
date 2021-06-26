@@ -1,0 +1,39 @@
+ép kiểu === settype() | gettype() | is_'type'()
+    Kiểu dữ liệu được xác định tại thời điểm chạy
+    /* falsy:
+        boolean false itself
+        integer 0 (zero)
+        floats 0.0 and -0.0 (zero)
+        empty string, and the string "0"
+        array with zero elements
+        NULL (including unset variables)
+        SimpleXML objects created from attributeless empty elements, i.e. elements which have neither children nor attributes.
+    */
+    ** resource & NAN === true
+    ** var_dump(0 == 'all') => TRUE, take care. Ép kiểu (int)'all' => 0. Xem ở TIL.txt Basic syntax
+
+OR ưu tiên thấp hơn =
+= ưu tiên thấp hơn ||
+    => $var = True OR False (FALSE)
+    => $var = True || False (TRUE)
+    ==> Luôn thêm () khi dùng OR
+
+PHP: [] == false | JS: [] == true (vì là object)
+
+PHP_INT_SIZE, PHP_INT_MAX, PHP_INT_MIN
+
+Interger overflow (tràn) => tự ép thành float (kể cả số, giá trị trả về của func)
+
+Không có phép chia số nguyên (trừ khi chia hết), chia dư sẽ chuyển thành float
+    Sử dụng intdiv() thay thế, hoặc round() để làm tròn.
+
+Ép kiểu (int) === intval()
+    Nếu giá trị float quá ngưỡng của int (overflow) => undefined (document) hay quay vòng? Xem ví dụ int-overflow.php (không cảnh báo)
+    NaN (infinity) => 0 khi ép về int
+    Không nên ép phân số (chưa biết giá trị chính xác) thành int
+        /* (int) ((0.1+0.7) * 10) = 7 vì ( 0.1 + 0.7 ) * 10 = 7.9999999999999991118...*/
+    Nếu string là số hoặc số đứng đầu => số. Nếu không => 0 (Xem ở TIL.txt Basic syntax)
+    NULL => 0
+
+( 0.1 + 0.7 ) * 10 = 7.9999999999999991118... => Vấn đề ở biểu diễn nhị phân trong một thanh ghi hữu hạn, giá trị bị cắt ngắn
+    => Không nên so sánh = trực tiếp các số float. Có thể sử dụng epsilon hoặc round with precision (như ví dụ trong float.php)
