@@ -10,7 +10,7 @@ xác định dùng IE:
     IE 11: Trident
     IE xx: MSIE
 
-ép kiểu (int): 11a => 11; a11 => 0;
+ép kiểu (int): "11a" => 11 (leading numeric string); "a11" => 0;
 
 chọn POST hay GET phụ thuộc vào việc gửi dữ liệu hay chia sẻ URL
 

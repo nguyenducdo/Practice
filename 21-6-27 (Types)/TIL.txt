@@ -1,0 +1,72 @@
+Variable parsing chỉ trong " " (double-quoted) hoặc heredoc. 
+    Simple syntax: ${...} chỉ định phạm vi biến đơn.
+    Complex syntax: {$ ...} chỉ định biểu thức phức tạp.
+
+Heredoc là double-quoted >< Nowdoc là single-quoted
+    Heredoc: <<<EOD | <<<"EOD"
+    Nowdoc: <<<'EOD'
+    Nowdoc không thực hiện parsing
+
+7.1.0 mới bắt đầu hỗ trợ index âm
+
+$foo->bar === $foo->$bar === $foo->{$baz[1]} === "{$foo->{$baz[1]}}"
+
+class: Beers
+    const: "... {${Beers::softdrink}}"
+    static: "... {${Beers::$ale}}"
+
+Nếu thêm ký vào index tự vượt quá chiều dài string, <space> sẽ được fill thêm vào.
+
+Index của string là số hoặc số dạng string. Index không hợp lệ trả về ký tự đầu tiền (index 0)
+
+Ép kiểu: (string) === strval()
+    Convert string chỉ thực hiện tự động trong 1 phạm vi cần thiết. VD: trong hàm echo, print, hoặc so sánh biến vs chuỗi.
+    Bool: true => "1", false => "" (empty) Và ngược lại.
+    Array: [...] => "Array". Mảng tự động convert thành chuỗi "Array". Có thể sử dụng print_r() hoặc var_dump()
+
+String là chuỗi bytes => Không cần kiểu Byte.
+
+String sẽ được mã hóa theo cùng kiểu mà file script của nó được viết.
+
+Một số hàm hoạt động với chuỗi làm việc trên memory buffers với từng byte và byte offset mà ko cần biết kiểu mã hóa để diễn giải ký tự.
+    /* substr(), strpos(), strlen() or strcmp() ...*/
+Một số khác lại hoạt động trên current locale (setLocale()) nhưng theo từng byte. Phải set đúng locale mới cho kết quả đúng.
+    /* 
+    * strcasecmp(), strtoupper() and ucfirst() ... 
+    * strtoupper("á") => "Á" (Nếu locale đúng)
+    * strtoupper("á") => Sai (Nếu encode trong UTF-8)
+    */
+Các tiện ích: intl and mbstring extensions. sẽ xử lý Unicode tốt hơn. Tốt nhất nên hiểu đặc tả Unicode.
+
+Tối ưu:
+    Sử dụng double-quoted cho nối chuỗi và đặt phạm vi cho biến "... {$variable}" (mặc dù ${var} nhanh hơn 1 chút nhưng không tiện vì không hỗ trợ biểu thức phức tạp)
+    single-quoted không cần parsing nên nhanh hơn 1.55% double-quoted khi viết những chuỗi chỉ chứa ký tự đơn thuần.
+        => Thống nhất viết single-quoted cho các chuỗi chỉ chứa ký tự đơn thuần.
+
+Array in PHP <=> array, list, hash table, dictionary, collection, stack, queue
+
+Array key:
+    number int string => int
+    float => int (bỏ phần thập phân)
+    bool => int (1 hoặc 0)
+    null => ""
+
+Phần tử cuối cùng của mảng nếu không đc set key thì mặc định là largest integer key (số nguyên lớn nhất làm key) trc đó ++
+    largest integer key: không phải tính trên các indexes ở thời điểm hiện tại mà là mọi thời điểm trc đó (kể cả đã unset)
+        => Trừ khi được re-index ($array = array_values($array);) sẽ reset lại index của mảng quay về 0
+
+$arr[] = ... Sẽ thêm phẩn tử vào cuối mảng hoặc tạo mảng trc nếu không tồn tại.
+$str[] = ... :
+    >=  7.1.0 Báo lỗi
+    <   7.1.0 Chuỗi chuyển thành mảng
+
+$foo[bar] => $foo["bar"] nếu symbol (hoặc const) bar chưa đc định nghĩa trc đó.
+    /*Còn gọi là bare string. Đã bị loại bỏ từ 7.2.0*/
+    "... $foo[bar]" <=> $foo["bar"] vì constant không đc xem xét trong string.
+    "... {$foo[bar]}" <=> $foo[bar] vì constant sẽ được xem xét nếu bao quanh bởi {}.
+
+TRICK gọi hàm trong string:
+    function getIndex($var) { ... }
+    $my_foo = 'getIndex';
+    echo "var-parsing: {$my_foo($var)}";
+
