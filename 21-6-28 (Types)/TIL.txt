@@ -1,0 +1,52 @@
+(array)$scalarValue === array($scalarValue)
+
+(array) NULL => []
+
+Tham chiếu (trong foreach, ...) sử dụng "&"
+    /* foreach ($colors as &$color) {_Sửa $color_} => Kết thúc phải unset($color) để tránh sửa nhầm */
+
+Có thể tạo mảng bắt đầu từ index bất kỳ
+    /* array(2 => 'January', 'February', 'March'). Bắt đầu từ 2*/
+
+Phép gán ( = ) mảng là copy nên sửa mảng mới không thay đổi mảng gốc. Muốn thay đổi thì dùng tham chiếu /* $arr3 = &$arr1; $arr3[0] = 9; */
+
+Iterable >= PHP 7.1
+    Traversable là 1 base interface (ko có methods) để báo hiệu cho những implement của nó là 1 traversable class 
+        Để xây dựng những class Traversable thì implements IteratorAggregate hoặc Iterator
+        Dù không thể implement nhưng có thể dùng để kiểm tra 1 object (hay thứ j đó) có thể dùng trong foreach hay ko /* if ($items instanceof Traversable) {} */
+    Iterator:
+        Thứ tự thực hiện hàm trong foreach: rewind, next, valid, current, key.
+        valid() return false => terminate foreach.
+        Nếu dùng Iterator để query db. Đặt query trong rewind() và nhớ close cursor hoặc clean up query trc tại đầu hàm rewind.
+    foreach trên các object chỉ hiển thị key => value đối với visible properties (public, protected trong class con)
+        Kể cả khi định nghĩa 1 foreach bên trong 1 function và gọi function ở bên ngoài cũng ko thể hiển thị đc thông tin invisible
+            /*
+            MyClass:: function iterateVisible() {
+                foreach ($this as $key => $value) { print "$key => $value\n"; }
+            }
+            $class = new MyClass();
+            $class->iterateVisible(); // kết quả print: "private" => "private var" (không hiển thị giá trị)
+            */
+    iterable cũng có thể dùng để chỉ định kiểu trả về cho iterable value (array hoặc Traversable)
+    
+Convert kiểu dữ liệu khác thành object là instance của built-in stdClass
+    NULL => {}
+    (object) 'ciao' => 1 member variable tên là scalar sẽ chứa giá trị 'ciao'
+
+Tạo generic object (empty object):
+    $obj1 = new \stdClass; // Instantiate stdClass object   => object(stdClass)#1 (0) {}
+    $obj2 = new class{}; // Instantiate anonymous class     => object(class@anonymous)#2 (0) {}
+    $obj3 = (object)[]; // Cast empty array to object       => object(stdClass)#3 (0) {}
+
+Phép so sánh non-strict equal tự động convert mảng rỗng thành null
+    [] == NULL
+    0 == NULL
+
+Callback truyền vào bằng "tên func". Function built-in hay user tự định nghĩa đều có thể sử dụng (ngoại trừ language construct)
+    function: "tên function" // anonymous functions, arrow functions: OK
+    object non-static method: [$object, "tên method"] || [$this, "tên method"] nếu callback gọi trong class
+    class static method: ["tên class", "tên method"] || "ClassName::methodName" || ['tên class con', 'parent::tên static method class cha']
+    object: Truyền object như callable nếu class định nghĩa hàn __invoke()
+    closure: /* $var = function (...) {...}. Truyền $var */
+
+"variable functions": /* $callback = 'printf'; $callback('Hello World!') */
