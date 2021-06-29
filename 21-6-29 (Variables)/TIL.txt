@@ -1,0 +1,31 @@
+local function scope riêng, tách biệt vs bên ngoài, không thể sử dụng biến bên ngoài (ngoại trừ biến superglobal)
+
+static variable nằm trong local function scope (gồm cả class method)
+    static variable chỉ được gán hằng số (constant hoặc constant expression), ko đc gán = dynamic expression (VD: gọi hàm)
+
+Object chỉ là tập hợp các thuộc tính => methods vẫn thuộc class
+    Vì vậy static variable trong một class method sẽ là chung cho tất cả object instance
+
+Biến được khai báo trong block (foreach, if, ...) cũng có thể truy cập từ bên ngoài block => cần giải phóng tham chiếu như ví dụ: using-array.php (21-6-28)
+
+1 function con nằm trong function cha nhưng vẫn là 2 function scope khác nhau => con không thể truy cập biến khai báo trong cha
+
+Variable variables: Lấy value của 1 biến làm tên cho biến khác
+    $$a[1]:
+        $"Tên biến tại $a[1]" => resolve: ${$a[1]}
+        $"Tên biến lưu trong $a"[index 1] => resolve: ${$a}[1]
+    Xem var-vars.php và var-props.php để xem thêm ví dụ
+
+External source variable:
+    Trong tên biến, dots (.) và space ( ) tự động chuyển thành underscores 
+        /* <input name="a.b" /> => $_POST["a_b"]. Trong Cookie cũng vậy */
+    Có thể nhóm nhiều form element với nhau thành 1 mảng để submit. Xem arr-form.php
+        Nếu external variable name bắt đầu vs cú pháp mảng hợp lệ, mọi thứ sau đó sẽ bị bỏ qua
+            /* <input name="foo[bar]baz"> => $_REQUEST['foo']['bar'] . Ignore 'baz' */
+        
+TRICKs:
+    Thay vì tính expires time bằng phép nhân: time()+(60*60*24*30)
+        có thể sử dụng: <?php setcookie( "TestCookie", $value, strtotime( '+30 days' ) ); ?>
+    Thay vì xóa Cookie bằng cách trừ thời gian hiện tại: time()-3600
+        có thể sử dụng: setcookie('name', 'content', 1);
+    

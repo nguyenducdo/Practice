@@ -25,7 +25,7 @@ PHP_INT_SIZE, PHP_INT_MAX, PHP_INT_MIN
 Interger overflow (tràn) => tự ép thành float (kể cả số, giá trị trả về của func)
 
 Không có phép chia số nguyên (trừ khi chia hết), chia dư sẽ chuyển thành float
-    Sử dụng intdiv() thay thế, hoặc round() để làm tròn.
+    Sử dụng intdiv() thay thế, hoặc round(), float() để làm tròn.
 
 Ép kiểu (int) === intval()
     Nếu giá trị float quá ngưỡng của int (overflow) => undefined (document) hay quay vòng? Xem ví dụ int-overflow.php (không cảnh báo)
