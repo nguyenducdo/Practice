@@ -9,4 +9,23 @@ $arr3[] = 9; // now $arr1 and $arr3 are the same
 print_r($arr1);
 echo "<br />";
 print_r($arr2);
+echo "<br />";
+
+function test (&$arr) {
+    $arr[] = 10;
+}
+test($arr3);
+$arr[] = 12; // Khac scope 
+print_r($arr1);
+echo "<br />";
+
+class Hi {
+    public $attr = 1; 
+}
+$hi = new Hi();
+$hi->attr = 2;
+echo "{$hi->attr} <br />";
+$hello = $hi;
+$hello->attr = 9;
+echo "{$hi->attr} <br />";
 ?>

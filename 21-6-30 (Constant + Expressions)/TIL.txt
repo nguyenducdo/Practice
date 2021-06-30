@@ -1,0 +1,12 @@
+Khai báo constant:
+    const: phải được định nghĩa tại top-level scope vì nó sẽ đc khởi tạo tại compile-time
+        => Không thể định nghĩa trong function, loop, if, try/catch, ...
+    define(): Khởi tạo 1 constant tại runtime
+    Constant có scope như superglobal => Có thể truy cập từ bất cứ đâu mà ko cần khai báo "global"
+
+Magic constant: 
+    Thay đổi dựa trên nơi chúng đc sử dụng
+    Magic constants resolve tại compile-time >< Regular constants resolve tại runtime
+
+Phép gán (=) được parsed từ phải sang trái
+    và bản thân phép gán cũng có giá trị trả về là giá trị được gán

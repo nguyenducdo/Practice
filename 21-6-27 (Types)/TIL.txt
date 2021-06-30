@@ -40,6 +40,7 @@ Các tiện ích: intl and mbstring extensions. sẽ xử lý Unicode tốt hơn
 
 Tối ưu:
     Sử dụng double-quoted cho nối chuỗi và đặt phạm vi cho biến "... {$variable}" (mặc dù ${var} nhanh hơn 1 chút nhưng không tiện vì không hỗ trợ biểu thức phức tạp)
+        => Vì PHP bị bắt phải re-concatenate với mỗi toán tử nối chuỗi ('.' operator).
     single-quoted không cần parsing nên nhanh hơn 1.55% double-quoted khi viết những chuỗi chỉ chứa ký tự đơn thuần.
         => Thống nhất viết single-quoted cho các chuỗi chỉ chứa ký tự đơn thuần.
 

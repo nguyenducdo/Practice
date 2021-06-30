@@ -1,0 +1,51 @@
+Các toán tử có độ ưu tiên (Precedence) và sự kết hợp (Associativity)
+    Khi độ ưu tiên bằng nhau => xét sự kết hợp
+        /*
+        Phép trừ (-) kết hợp từ trái sang phải 
+        Phép gán (=) kết hợp từ phải sang trái 
+        Nhóm phép so sánh <, <=, >, >= (hoặc nhóm ==, !=, ===, !==, <>, <=>) không có sợ kết hợp nên không thể đứng cùng nhau => 1 < 2 > 1 (Invalid)
+        */
+    Associativity có ý nghĩa đối với toán tử nhị phân (hoặc bậc 3). Không áp dụng cho toán tử đơn nguyên là tiền tố hoặc hậu tố
+        /* !!$a => !(!$a) */
+    Toán tử bậc 3 có chút khác biệt:
+        /* true ? 0 : true ? 1 : 2; // (true ? 0 : true) ? 1 : 2 = 2 */
+
+*Chú ý: 
+    +, -, nối chuỗi (.) có độ ưu tiên = nhau
+    Phép gán (=) ưu tiên thấp hơn (!, hoặc tương tự) nhưng vẫn cho phép biểu thức sau:
+        !$a = foo() => !($a = foo()). Vì Associativity không áp dụng cho toán tử đơn nguyên (như trên)
+    $a % $b => Kết quả sẽ lấy dấu theo $a
+
+Phép gán (=) thường là copy dữ liệu gốc. Ngoại lệ duy nhất là gán object sẽ sử dụng tham chiếu
+    (Vì?) new operator tự động tạo tham chiếu
+
+So sánh: Nếu cả 2 là numeric string hoặc 1 number 1 numeric string => Tự động chuyển thành 2 number để so sánh
+
+null coalescing (??)
+    /* $a ?? $b => $b nếu $a là NULL, nếu ko thì $a */
+
+@-operator có thể đặt trước những thứ mà có thể lấy giá trị
+    => Không thể đặt trc định nghĩa hàm, lớp, biểu thức điều kiện, ...
+    Cách @-operator hoặc động:
+        * the error handler that is set gets called regardless of what level the error reporting is set on,or whether the statement is preceeded with @
+        * it is up to the error handler to impart some meaning on the different error levels. You could make your custom error handler echo all errors, even if error reporting is set to NONE.
+        * so what does the @ operator do? It temporarily sets the error reporting level to 0 for that line. If that line triggers an error, the error handler will still be called, but it will be called with an error level of 0
+        /* Chờ update từ phần xử lý lỗi */
+
+backtick (``): Thực thi shell command
+    Vô hiệu hóa khi shell_exec() bị vô hiệu hóa
+    Có thể thêm variable vào lệnh như doubled-quote => /* `ping -n 3 {$host}` */
+
+Tăng (++) có thể cho plain ASCII alphabets and digits [a-zA-Z0-9] (và không thể giảm (--))
+    Chú ý 1 số float numeric string
+
+"Nối" 2 số => chuỗi /* 1 . 2 => "12" */
+
+Array1 + Array2 => Những key trùng lặp trong Array2 sẽ bị bỏ qua (thay vì override)
+    /* Dùng array_merge() để nối value */
+
+Instanceof 1 outer class
+    Nếu file đc include sử dụng namespace
+    và sử dụng instanceof với "class_name" (string) thay vì chỉ định trực tiếp hằng số
+        thì phải chỉ định cả namespace cho "class_name" => "namespace\class_name".
+    
