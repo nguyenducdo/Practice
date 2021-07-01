@@ -1,0 +1,39 @@
+list($var1, $var2, ...) = $arr
+    Không quan tâm đến thứ tự khai báo index trong $arr. Nó sắp xếp lại $arr theo thứ tự integer index và gán vào các biến
+    Những index không phải int sẽ ko đc xét
+    (>= PHP 7.1 Được chỉ định key trực tiếp)
+
+Nhúng switch block vào html thì giữa switch và case 1 không đc phép có khoảng trắng
+    /**** ERROR ***
+<?php switch ($foo): ?>
+    <?php case 1: ?>
+        ...
+<?php endswitch ?>
+    */
+
+    /**** OK ***
+<?php switch ($foo): ?> // Dấu EOL được cho là 1 phần của closing (?>) nên ko tính
+<?php case 1: ?>
+     ...
+<?php endswitch ?>
+    */
+
+continue trong switch hoạt động như break.
+    nếu switch trong 1 loop, continue 2; sẽ out switch và continue parent loop (tương tự vs break)
+
+match >= PHP 8.0
+
+return value bên trong 1 file được include() => value sẽ trở thành giá trị trả về của include()
+
+PHP xử lý (compile) file trước khi thực thi, nên hàm được khai báo bên trong 1 file sẽ có sẵn trong parent file mà include nó.
+
+require khác (gần giống) include:
+    require: E_COMPILE_ERROR
+        Là statement, ko phải function, expression => require 'file.php';
+    include: E_WARNING
+        Là expression, 
+            nếu path ko đc chỉ định (include('')) =>
+            tìm trong include_path của file cấu hình (php.ini), nếu ko có => 
+            tìm trong thư mục riêng của lệnh gọi hoặc thư mục làm việc hiện tại (cwd), nếu ko có => 
+            Lỗi
+        
