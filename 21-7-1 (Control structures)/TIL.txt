@@ -30,10 +30,33 @@ PHP xử lý (compile) file trước khi thực thi, nên hàm được khai bá
 require khác (gần giống) include:
     require: E_COMPILE_ERROR
         Là statement, ko phải function, expression => require 'file.php';
+        Không tìm thấy => E_ERROR
     include: E_WARNING
-        Là expression, 
+        Là language construct, ko phải function => include 'file.php';
             nếu path ko đc chỉ định (include('')) =>
             tìm trong include_path của file cấu hình (php.ini), nếu ko có => 
             tìm trong thư mục riêng của lệnh gọi hoặc thư mục làm việc hiện tại (cwd), nếu ko có => 
-            Lỗi
+            E_WARNING
+        Nếu parent.php include child.php
+            Các biến trong parent khai báo trước include sẽ là global scope trong child
+            Các biến trong child sẽ có scope tại nơi gọi lệnh include trong parent và kể từ sau include
+            Nếu include đc gọi trong 1 function, code trong child sẽ hoạt động như thể code được viết trong function đó
+            /* Tuy nhiên, magic constant được đánh giá trước khi include xảy ra nên vẫn tính trong child */
+        /*
+            include('vars.php') == TRUE (Lỗi) <=> include 'vars.php'==TRUE <=> include '1'
+            (include 'vars.php') == TRUE (OK)
+        */
+
+TRICKs:
+    include file từ thư mục root project:
+        /*
+            include $_SERVER['DOCUMENT_ROOT']."/lib/sample.lib.php";
+        */
+    
+    Nếu muốn 1 file chỉ để include mà ko đc truy cập trực tiếp từ client => Chuyển file đó ra ngoài thư mục root project:
+        /*
+        # root: /usr/share/nginx/html
+        # outer: /usr/share/nginx/src
         
+            include __DIR__ . '/../src/includeFile.php';
+        */
