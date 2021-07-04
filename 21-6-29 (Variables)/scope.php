@@ -26,4 +26,12 @@ function Sum()
 Sum();
 // include 'scope-sub.php';
 // echo $b, "\n";
+
+function modify_global() {
+    global $a;
+    $a += 3;
+}
+modify_global();
+echo "modify \$a: $a\n";
+
 ?>

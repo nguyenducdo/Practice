@@ -60,6 +60,6 @@ $bar = 'veggie';
 echo $arr[getIndex($bar)];
 echo "<br />";
 /************ TRICKs ***********/
-$my_foo = 'getIndex';
+$my_foo = 'getIndex'; // variable functions
 echo "var-parsing: {$arr[getIndex($bar)]}, {$my_foo($bar)}";
 ?>

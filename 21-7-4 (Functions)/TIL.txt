@@ -1,0 +1,53 @@
+function không cần định nghĩa trước khi gọi. Tuy nhiên, có TH đặc biệt:
+    Khai báo function trong block điều kiện (if, ...):
+        Phải khai báo trc khi gọi
+        Nên kiểm tra điều kiện trc khi thực hiện gọi hàm
+    
+    Khai báo function trong function: /* parent() { ...; child() {...} }*/
+        Phải gọi hàm parent() trc <=> Khai báo child()
+        Sau khi gọi hàm parent() mới có thể gọi hàm child()
+        Không cần khai báo parent() trc khi gọi
+
+Hiệu suất của pass-by-reference and pass-by-value:
+    Đối với pass-by-value: Thực hiện zero-copy/copy-on-write => Tức là chỉ copy khi cần thay đổi data 
+        Nếu chỉ đọc thì ko cần copy nên tốc độ khi đó tương đương pass-by-reference
+        Nếu cần sửa đổi data sẽ thực hiện copy nên sẽ chậm hơn nhiều pass-by-reference
+    Pass-by-value dễ đọc và tránh sửa đổi dữ liệu gốc ko mong muốn
+
+function và class trong PHP là global scope, kể cả khi đc khai báo trong 1 function khác
+
+Không hỗ trợ overload function, ko thể undefine hoặc redefine 1 function đã khai báo
+
+Tham số mặc định cho hàm phải là hằng số => Không thể là biến, class member, function call
+
+function return một reference phải đặt dấu (&) trước tên hàm khi khai báo + khi gọi hàm()
+    /* function &func() { return ref }; $var = &func(); */
+
+variable function <=> biến có dấu (), PHP coi nó là 1 function, tìm kiếm function có tên lưu trong biến và thực thi
+    Không thể sử dụng cho language constructs như echo, print, unset(), isset(), empty(), include, require, ...
+        => Nếu muốn thì phải tự khai báo 1 function wrapper
+    Object method: OK
+    Object method hoặc class static method cũng có thể được gọi bằng cách sử dụng $variable là 1 mảng
+        /* var-function-complex.php */
+    Không thể sử dụng constant trực tiếp để gọi hàm, phải sử dụng gián tiếp qua biến 
+        ( Xét const DEBUGME ='func'; function func($var) {...} )
+        /*
+            DEBUGME($var); => Lỗi
+            $call = DEBUGME; $call($var); => OK
+            function dynamic($func_name) { $func_name($var) }; dynamic(DEBUGME); => OK
+        */
+
+Anonymous functions đc implemented sử dụng Closure class
+    Closures có thể kế thừa các biến từ parent scope (function mà closure đc khai báo) => Sử dụng use. Tuy nhiên khác với sử dụng biến global
+        /* >= PHP 7.1: Ko thể use các biến superglobal, $this, hoặc các biến trùng tên vs tham số của hàm */
+        Giá trị của biến được kế thừa là giá trị khi closure đc khai báo, ko phải khi đc gọi (Trừ khi Inherit by-reference)
+    Khi đc khai báo trong class, class sẽ ràng buộc vs nó và $this sẽ có sẵn trong anonymous function scope
+    static anonymous functions đc khai báo tĩnh => Ngăn class tự động ràng buộc => Các object (cả $this) sẽ ko bị ràng buộc trong runtime
+
+Arrow functions: >= PHP 7.4
+    Giống Anonymous function (Nhưng tự động đc sử dụng variable từ parent scope (pass-by-value))
+    syntax: fn (argument_list) => expr
+    Muốn thay đổi giá trị của biến outer scope:
+        - Sử dụng Anonymous function use (&$ref)
+        - Truyền tham chiếu vào tham số và gọi hàm /* $arrow_func = fn(&$x) => $x++; $arrow_func($x); */
+
