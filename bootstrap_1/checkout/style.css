@@ -1,0 +1,22 @@
+.description {
+    padding: 0 1em;
+}
+
+.price {
+    float: right;
+}
+
+.total .price {
+    font-weight: bold;
+}
+
+.list-group-item.item-active {
+    color: rgb(40, 167, 69);
+    background-color: #f8f9fa;
+}
+
+.list-group-item.item-active small{
+    font-size: initial;
+    font-weight: normal;
+    text-transform: uppercase;
+}
