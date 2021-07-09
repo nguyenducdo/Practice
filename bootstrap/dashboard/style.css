@@ -1,0 +1,39 @@
+body {
+    font-size: .875rem;
+}
+
+.navbar {
+    overflow: hidden;
+}
+
+.navbar input {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.sider-nav {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* z-index: 1; */
+}
+
+.sider-nav a.nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.sider-nav a.nav-link svg{
+    margin-right: 3px;
+}
+
+.sider-nav a.nav-link, .sider-nav a.nav-link svg {
+    color: #343a40;
+    /* color: red; */
+}

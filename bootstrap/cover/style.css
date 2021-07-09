@@ -1,0 +1,60 @@
+body {
+    height: 100vh;
+    background-color: #333;
+    text-align: center;
+    color: #fff;
+}
+
+a, a:hover, a:focus {
+    color: #fff;
+}
+
+@media (min-width: 48em) {
+    header .brand {
+        float: left;
+    }
+
+    header .nav {
+        float: right;
+    }
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, .5);
+    margin: 0 20px;
+    padding: 0 0 10px 0;
+    border-bottom: 0.25em solid transparent;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, .5);
+    border-bottom-color: rgba(255, 255, 255, .5);
+}
+
+.nav-link.active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.cover-container {
+    max-width: 42em;
+}
+
+.cover-container .content {
+    padding: 0 1.5rem;
+}
+
+.cover-container .content button{
+    font-weight: bold;
+    color: rgba(0, 0, 0, .5);
+    background-color: #fff;
+}
+
+.cover-container .content p{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+footer {
+    color: rgba(255, 255, 255, .5)
+}

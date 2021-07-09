@@ -1,0 +1,38 @@
+.nav-scroll {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+.banner {
+    color: #fff;
+}
+
+.suggest .thumbnail {
+    border-radius: 0 3px 3px 0;
+    height: 250px;
+}
+
+.suggest .thumbnail .content {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100%;
+}
+
+.suggest .card {
+    max-height: 250px;
+}
+
+.about, footer {
+    background-color: #f9f9f9;
+}
+
+.about, .archives, .elsewhere {
+    padding: 1em;
+}
+
+.blog-pagination button {
+    border-radius: 2rem;
+}

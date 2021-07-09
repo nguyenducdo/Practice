@@ -18,7 +18,7 @@
         <div class="text-center mb-5">
             <div><span>LOGO</span></div>
             <h2>Checkout form</h2>
-            <div class="description">
+            <div class="lead">
                 <p>Below is an example form built entirely with Bootstrap's form controls. Each required form group has
                     a validation state that can be triggered by attempting to submit the form without completing it.</p>
             </div>
@@ -28,7 +28,7 @@
                 <form>
                     <fieldset>
                         <legend>Billing address</legend>
-                        <div class="border-bottom">
+                        <div class="">
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="first_name_id">First name</label>
@@ -68,7 +68,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="country_id">Country</label>
-                                        <select class="form-control" name="country" id="country_id">
+                                        <select class="custom-select" name="country" id="country_id">
                                             <option>Choose...</option>
                                             <option>United States</option>
                                         </select>
@@ -77,7 +77,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="state_id">State</label>
-                                        <select class="form-control" name="state" id="state_id">
+                                        <select class="custom-select" name="state" id="state_id">
                                             <option>Choose...</option>
                                             <option>California</option>
                                         </select>
@@ -91,27 +91,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="border-bottom">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check_1" name="check" />
-                                <label for="check_1">Shipping address is the same as my billing address</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check_2" name="check" />
-                                <label for="check_2">Save this information for next time</label>
-                            </div>
+                        <hr class="my-4" />
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="check_1" name="check" />
+                            <label for="check_1" class="custom-control-label">Shipping address is the same as my billing address</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="check_2" name="check" />
+                            <label for="check_2" class="custom-control-label">Save this information for next time</label>
                         </div>
                     </fieldset>
+                    <hr class="my-4" />
                     <fieldset>
                         <legend>Payment</legend>
                         <div class="border-bottom">
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radio_1" name="radio" />
-                                <label for="radio_1">Credit card</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="radio_1" name="radio" />
+                                <label for="radio_1" class="custom-control-label">Credit card</label>
                             </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radio_2" name="radio" />
-                                <label for="radio_2">Debit card</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="radio_2" name="radio" />
+                                <label for="radio_2" class="custom-control-label">Debit card</label>
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="radio_3" name="radio" />
@@ -179,7 +179,7 @@
                     <div class="list-group mt-3">
                         <form class="list-group-item">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="promo" placeholder="Promo code"/>
+                                <input type="text" class="form-control" name="promo" placeholder="Promo code" />
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-secondary">Redeem</button>
                                 </div>
