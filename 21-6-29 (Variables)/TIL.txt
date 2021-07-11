@@ -22,7 +22,11 @@ External source variable:
     Có thể nhóm nhiều form element với nhau thành 1 mảng để submit. Xem arr-form.php
         Nếu external variable name bắt đầu vs cú pháp mảng hợp lệ, mọi thứ sau đó sẽ bị bỏ qua
             /* <input name="foo[bar]baz"> => $_REQUEST['foo']['bar'] . Ignore 'baz' */
-        
+
+Khai báo global $variable thực ra là tạo một tham chiếu đến global variable
+    => Gán $variable = &$other chỉ làm thay đổi tham chiếu của $variable đến một biến trong function scope => Bên ngoài không nhận được thay đổi
+    => Không thể lưu tham chiếu một cách tĩnh trong static variable của 1 function
+
 TRICKs:
     Thay vì tính expires time bằng phép nhân: time()+(60*60*24*30)
         có thể sử dụng: <?php setcookie( "TestCookie", $value, strtotime( '+30 days' ) ); ?>

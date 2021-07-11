@@ -1,0 +1,64 @@
+object assign:
+    memory slot chứa basic data => lưu object handle (cũng là basic) để trỏ đến instance của 1 object
+        reference: trỏ đến slot chứa object handle
+        assignment: copy object handle_2 => nhưng vẫn trỏ đến cùng instance object
+    Đặt giá trị NULL tại slot 1 thì cả origin và reference = NULL
+        không ảnh hưởng slot 2 => assignment = object handle_2 vẫn trỏ đến instance object
+
+$this -> current object
+self -> current class
+static -> class đang đc gọi
+
+Khởi tạo giá trị mặc định cho thuộc tính phải là hằng số
+
+Thuộc tính const ở mức class, có thể ghi đè bởi class con
+Thuộc tính type declare phải đc set giá trị trước khi dùng
+
+__destruct() chỉ đc gọi khi ko có tham chiếu nào đến object
+    Tham chiếu vòng tròn (2 object tham chiếu đến nhau)
+    hoặc Tự tham chiếu chính nó ($this->foo = $this)
+        => Khiến desctruct() ko đc gọi 
+        => Nguy cơ rò rỉ bộ nhớ
+    Sử dụng gc_collect_cycles(); để giải phóng chúng. Nhưng có speed overhead => chỉ dùng khi cần
+
+2 instance của cùng 1 class có thể truy cập thuộc tính private của nhau bên trong phạm vi object
+    Vì đã biết cấu trúc bên trong của object kia 
+
+Override private method:
+    Class con không thể thấy private method của Class cha => Không thể override 
+        => Mỗi cha và con có 1 private method riêng và nơi nó đc gọi sẽ xác định đó là private method của cha hay con
+    Muốn che giấu với bên ngoài và ghi đè => Sử dụng protected
+
+Không thể override constant thuộc interface (class thì OK)
+    /* Cannot inherit previously-inherited or override constant C_CONST from interface C */
+
+Thứ tự override:
+    method in class > trait member > inherited method
+
+Class và trait
+    Class có thể override function của trait
+        nhưng nếu muốn khai báo thuộc tính giống tên trong trait thì thuộc tính trong Class phải giống cả visibility và initial value
+            (Nếu thuộc tính trong trait ko có giá trị khởi tạo thì Class cũng ko)
+    Nếu trait có thuộc tính static, mỗi class sử dụng trait sẽ có 1 instance độc lập của thuộc tính static đó
+    /* 
+        Để hiểu trait, copy code từ 1 class sang class khác.
+            Nếu chạy đc => có thể là trait 
+    */
+
+"use" namespace coi tham số của nó là absolute
+"use" trait coi tham số của nó thuộc namespace hiện tại
+"use" closure tham số là các biến global
+
+__CLASS__ trong trait sẽ trả về tên class đang use trait này
+
+Các anonymous class sẽ được tự động gán cho 1 cái tên bởi engine
+    => các instance của cùng 1 anonymous class sẽ đều là instance của cùng 1 class đó
+        /* get_class($obj1) === get_class($obj2) */
+So sánh object:
+    ( == ): Cùng class, cùng attribute và value (value so sánh ==)
+    ( === ): Cùng tham chiếu đến 1 instance
+So sánh == có thể dẫn đến lỗi đệ quy nếu attribute của 2 object này tham chiếu đến object còn lại (tham chiếu vòng tròn)
+
+
+
+??? Magic method, Object cloning
