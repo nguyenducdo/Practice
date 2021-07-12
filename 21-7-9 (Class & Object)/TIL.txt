@@ -1,5 +1,5 @@
 object assign:
-    memory slot chứa basic data => lưu object handle (cũng là basic) để trỏ đến instance của 1 object
+    memory slot chứa basic data => lưu object handle/object identifier (cũng là basic) để trỏ đến instance của 1 object
         reference: trỏ đến slot chứa object handle
         assignment: copy object handle_2 => nhưng vẫn trỏ đến cùng instance object
     Đặt giá trị NULL tại slot 1 thì cả origin và reference = NULL
@@ -59,6 +59,4 @@ So sánh object:
     ( === ): Cùng tham chiếu đến 1 instance
 So sánh == có thể dẫn đến lỗi đệ quy nếu attribute của 2 object này tham chiếu đến object còn lại (tham chiếu vòng tròn)
 
-
-
-??? Magic method, Object cloning
+static property sẽ không serialized
