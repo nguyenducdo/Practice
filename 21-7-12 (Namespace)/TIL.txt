@@ -34,3 +34,14 @@ Import namespace (use namespace as "alias") được thực hiện tại compile
         2- to insert traits in classes,
         3- to inherit variables in closures.
 */
+
+
+Sử dụng class: 
+    Nếu không chỉ thị namespace thì dùng currentnamespace
+    Nếu không tìm thấy => Cố gắng auto load "currentnamespace\class"
+    Nếu không load đc => Lỗi
+Sử dụng function hoặc constant:
+    Nếu không chỉ thị namespace thì dùng currentnamespace
+    Nếu không tìm thấy => Fallback đến global namespace
+    Nếu không tìm thấy trong global namespace => Lỗi
+
