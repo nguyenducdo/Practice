@@ -1,0 +1,36 @@
+Có thể định nghĩa cùng 1 namespace trong nhiều file để chia nhỏ nội dung namespace
+
+Thêm "\" ở đầu để chỉ namespace tuyệt đối từ root
+    Không có "\" sẽ tự động thêm namespace hiện tại vào trước
+    Muốn sử dụng global variable từ trong namespace => thêm "\" để truy cập global namespace
+
+global code (ngoài namespace) trong cùng 1 file với namespace phải được đặt trong namespace{...} ( namespace không tên )
+    /* Tuy nhiên, mỗi namespace nên đặt trong 1 file khác nhau */
+
+Sử dụng try/catch trong namespace:
+    catch (Exception as $ex) => catch (currentnamespace\Exception as $ex) => Không catch được
+    Phải sử dụng "\Exception"
+
+use namespace không thể sử dụng cho function
+    /*
+        namespace bar;
+        use foo\abc;
+        abc(); // => \bar\abc()
+    */
+
+Import namespace (use namespace as "alias") được thực hiện tại compile time => Không có hiệu lực cho sử dụng dynamic class
+    /*
+        $a = 'Another';
+        $obj = new $a;      // instantiates object of class Another, not alias
+    */
+    Import chỉ có hiệu lực khi sử dụng cho alias không đầy đủ (Không có "\" ở đầu)
+    Thực hiện tại compile time => Phải khai báo trong outermost scope hoặc trong khai báo namespace => Không thể import trong block scope
+    Không trong block scope => use namespace\trait trong class block không thể được thực hiện
+        => use trait khác với use namespace\trait
+
+/*
+    3 cách dùng của use:
+        1- to import/alias classes, traits, constants, etc. in namespaces,
+        2- to insert traits in classes,
+        3- to inherit variables in closures.
+*/
