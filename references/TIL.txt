@@ -1,0 +1,19 @@
+Trong function, nếu gán 1 biến global = 1 tham chiếu, tham chiếu chỉ nhìn thấy trong function
+    => Ra khỏi function sẽ ko thể sử dụng tham chiếu đó
+    => Sử dụng $GLOBALS['variable'] sẽ truy cập đc tham chiếu khi ra khỏi function
+    
+    global $var; tương đương với $var =& $GLOBALS['var'];
+        => Thay đổi tham chiếu của $var ko thay đổi tham chiếu của GLOBALS var
+
+
+Gán tham chiếu (=&) một phần tử của array biến phần tử đó trở thành tham chiếu
+    /*
+        $arr0 = [1]; // $arr{ [0] => int(1) }
+        $a =& $arr[0]; // $arr{ [0] => &int(1) }
+    */
+
+Function return reference:
+    $var = &func() => var tham chiếu đến tham chiếu đc trả về
+    $var = func() => var lưu giá trị tại tham chiếu đc trả về
+    /* ref-return.php */
+

@@ -1,0 +1,7 @@
+yield lưu lại key được trả về bởi Traversable hoặc Array
+    => yield hoặc yield from sẽ bắt đầu lại key từ 0
+    => convert iterator to array sẽ bị trùng key
+    => ghi đè value
+
+Không thể rewind generator đã được chạy (trong foreach, next(), ...)
+    => Muốn chạy lại phải tạo generator mới bằng cách gọi lại generator function
