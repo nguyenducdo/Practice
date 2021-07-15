@@ -1,0 +1,5 @@
+//TIL
+
+Console: make:command
+    chứa custom command cho app
+    

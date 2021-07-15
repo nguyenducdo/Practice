@@ -1,0 +1,6 @@
+//TIL
+
+Chứa app.php file để bootstrap framework
+
+Thư mục cache chứa file sinh ra bởi framework để tối ưu hiệu suất
+
